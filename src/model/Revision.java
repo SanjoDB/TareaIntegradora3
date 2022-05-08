@@ -2,8 +2,17 @@ package model;
 
 public class Revision extends Document{
 
+    /** 
+	 * gasLevel double, is use to store the level of the gases of the Revision document
+	 */
     private double gasLevel;
 
+    /** 
+	 * Constructor used for obj document
+	 * @param price
+	 * @param year
+     * @param gasLevel
+	 */
     public Revision(double price, int year, double gasLevel){
 
         super(price, year);
@@ -23,6 +32,10 @@ public class Revision extends Document{
 		
 	}
 
+    /**
+	 * Method used to show the information of a revision Document
+	 * @return revision Document
+	 */
     public String toString(){
 
         return "Document Price: " + super.price + "\n" +

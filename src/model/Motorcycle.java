@@ -2,12 +2,35 @@ package model;
 
 public class Motorcycle extends Vehicle{
 
+	/** 
+	 * gasolineCapacity double, is use to store the capacity of gasoline of the Motorcycle
+	 */
     private double gasolineCapacity;
+
+	/** 
+	 * typeGasoline GasolineType, is use to store the type of Motorcycle
+	 */
     private MotorcycleType type2;
 
-    public Motorcycle(double basePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, double gasolineCapacity, int type2){
+	/** 
+	 * Constructor used for the Motorcycle
+	 * @param basePrice
+	 * @param salePrice
+	 * @param brand
+	 * @param model
+	 * @param cylinderCapacity
+	 * @param mileage
+	 * @param badge
+	 * @param type
+	 * @param soat
+	 * @param revision
+	 * @param propertyCard
+	 * @param gasolineCapacity
+	 * @param type2
+	 */
+    public Motorcycle(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, double gasolineCapacity, int type2){
 
-		super(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard);
+		super(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard);
         this.gasolineCapacity=gasolineCapacity;
 
         switch(type2){
@@ -56,33 +79,40 @@ public class Motorcycle extends Vehicle{
 		
 	}
 
+	/**
+	 * Method used to calculate the consume of gasoline of the Motorcycle
+	 */
 	public double consumeGasoline(){
 
 		return (getGasolineCapacity() * (super.cylinderCapacity/75));
 
 	}
 
+	/**
+	 * Method used to calculate the sale price of the Motorcycle
+	 */
 	@Override
-	public double sellPrice(int discount, double extraD){
+	public void sellPrice(int discount, double extraD){
 
-		double str=0;
 		if(soat.getYear()!=Control.ACTUAL_YEAR && revision.getYear()!=Control.ACTUAL_YEAR){
-			str+= str+500000;
+			super.salePrice+= super.salePrice+500000;
 		}
 
-		str+= basePrice + (basePrice*(4/100));
+		super.salePrice+= basePrice + (basePrice*(4/100));
 
 		if(type==VehicleType.USED){
-			str+= str-(str*(2/100));
+			super.salePrice+= super.salePrice-(super.salePrice*(2/100));
 		}
 		if(discount==1){
-			str+= str-(basePrice*(extraD/100));
+			super.salePrice+= super.salePrice-(basePrice*(extraD/100));
 		}
-
-		return str;
 	}
 
-	public String toString(int discount, double extraD){
+	/**
+	 * Method used to show the information of a Motorcycle
+	 * @return Motorcycle
+	 */
+	public String toString(){
 
         return "Base Price: " + super.basePrice + "\n" +
         "Brand: " + super.brand + "\n" +
@@ -91,13 +121,13 @@ public class Motorcycle extends Vehicle{
 		"Mileage: " + super.mileage + "\n" +
 		"Badge: " + super.badge + "\n" +
 		"Type of Vehicle: " + super.type + "\n" +
-		"SOAT: " + super.soat + "\n" +
-		"Mechanicle revision: " + super.revision + "\n" +
-		"Property Card: " + super.propertyCard + "\n" +
+		"SOAT: " + "\n" + super.soat +
+		"Mechanicle revision: " + "\n" + super.revision +
+		"Property Card: " + "\n" + super.propertyCard +
 		"Gasoline Capacity: " + getGasolineCapacity() + "\n" +
 		"Type of Motorcycle: " + getType2() + "\n" +
 		"Gasoline Consume: " + consumeGasoline() + "\n" +
-		"Sell Price: " + sellPrice(discount, extraD) + "\n";
+		"Sell Price: " + super.salePrice + "\n";
 
     }
 }

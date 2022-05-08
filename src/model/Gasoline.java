@@ -2,12 +2,38 @@ package model;
 
 public class Gasoline extends Automobile implements GasolineConsume{
 
+	/** 
+	 * tankCapacity double, is use to store the capacity of the tank of the gas automobile
+	 */
     private double tankCapacity;
+
+	/** 
+	 * typeGasoline GasolineType, is use to store the type of gasoline the automobile uses
+	 */
     private GasolineType typeGasoline;
 
-    public Gasoline(double basePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, int numDoor, boolean polarized, int type1, double tankCapacity, int typeGasoline){
+	/** 
+	 * Constructor used for obj gasoline autombobile
+	 * @param basePrice
+	 * @param salePrice
+	 * @param brand
+	 * @param model
+	 * @param cylinderCapacity
+	 * @param mileage
+	 * @param badge
+	 * @param type
+	 * @param soat
+	 * @param revision
+	 * @param propertyCard
+	 * @param numDoor
+	 * @param polarized
+	 * @param type1
+	 * @param tankCapacity
+	 * @param typeGasoline
+	 */
+    public Gasoline(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, int numDoor, boolean polarized, int type1, double tankCapacity, int typeGasoline){
 
-        super(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1);
+        super(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1);
         this.tankCapacity=tankCapacity;
 
         switch(typeGasoline){
@@ -52,34 +78,40 @@ public class Gasoline extends Automobile implements GasolineConsume{
 		
 	}
 
+	/**
+	 * Method used to calculate the consume of gasoline of the Automobile
+	 */
 	public double consumeGasoline(){
 
 		return (getTankCapacity() * (super.cylinderCapacity/150));
 
 	}
 
+	/**
+	 * Method used to calculate the sale price of the Gasoline Automobile
+	 */
 	@Override
-	public double sellPrice(int discount, double extraD){
-
-		double str=0;
+	public void sellPrice(int discount, double extraD){
 
 		if(soat.getYear()!=Control.ACTUAL_YEAR && revision.getYear()!=Control.ACTUAL_YEAR){
-			str+= str+500000;
+			super.salePrice+= super.salePrice+500000;
 		}
 
-		str+= basePrice;
+		super.salePrice+= basePrice;
 
 		if(type==VehicleType.USED){
-			str+= str-(str*(10/100));
+			super.salePrice+= super.salePrice-(super.salePrice*(10/100));
 		}
 		if(discount==1){
-			str+= str-(basePrice*(extraD/100));
+			super.salePrice+= super.salePrice-(basePrice*(extraD/100));
 		}
-
-		return str;
 	}
 
-	public String toString(int discount, double extraD){
+	/**
+	 * Method used to show the information of a Gasoline Automobile
+	 * @return Gasoline Automobile
+	 */
+	public String toString(){
 
         return "Base Price: " + super.basePrice + "\n" +
         "Brand: " + super.brand + "\n" +
@@ -88,16 +120,16 @@ public class Gasoline extends Automobile implements GasolineConsume{
 		"Mileage: " + super.mileage + "\n" +
 		"Badge: " + super.badge + "\n" +
 		"Type of Vehicle: " + super.type + "\n" +
-		"SOAT: " + super.soat + "\n" +
-		"Mechanicle revision: " + super.revision + "\n" +
-		"Property Card: " + super.propertyCard + "\n" +
+		"SOAT: " + "\n" + super.soat +
+		"Mechanicle revision: " + "\n" + super.revision +
+		"Property Card: " + "\n" + super.propertyCard +
 		"Number of Doors: " + super.numDoor + "\n" +
 		"Is it Polarized: " + super.polarized + "\n" +
 		"Type of Automobile: " + super.type1 + "\n" +
 		"Tank Capacity: " + getTankCapacity() + "\n" +
 		"Type of gas: " + getTypeGasoline() + "\n" +
 		"Gasoline Consume: " + consumeGasoline() + "\n" +
-		"Sell Price: " + sellPrice(discount, extraD) + "\n";
+		"Sell Price: " + super.salePrice + "\n";
 
     }
 }

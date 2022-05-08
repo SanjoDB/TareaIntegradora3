@@ -6,32 +6,37 @@ public abstract class Vehicle{
 	//En carros nuevos, el año es el actual y el precio es 0
 
 	/** 
-	 * basePrice double is use to store the name of the specie
+	 * basePrice double is use to store basic price of the vehicle
 	 */
     protected double basePrice;
 
 	/** 
-	 * brand String is use to store the name of the specie
+	 * basePrice double is use to store the final price of the vehicle
+	 */
+    protected double salePrice;
+
+	/** 
+	 * brand String is use to store the brand the vehicle is from
 	 */
     protected String brand;
 
 	/** 
-	 * model int is use to store the name of the specie
+	 * model int is use to store the year of released of that type of vehicle
 	 */
     protected int model;
 
 	/** 
-	 * cylinderCapacity double is use to store the name of the specie
+	 * cylinderCapacity double is use to store the capacity of the cylinders of the vehicle
 	 */
     protected double cylinderCapacity;
 
 	/** 
-	 * mileage double is use to store the name of the specie
+	 * mileage double is use to store the distance path by the vehicle
 	 */
     protected double mileage;
 
 	/** 
-	 * badge String is use to store the name of the specie
+	 * badge String is use to store the unique identification of the vehicle
 	 */
     protected String badge;
 
@@ -44,6 +49,7 @@ public abstract class Vehicle{
 	/** 
 	 * Constructor used for obj Vehicle
 	 * @param basePrice
+	 * @param salePrice
 	 * @param brand
 	 * @param model
 	 * @param cylinderCapacity
@@ -54,9 +60,10 @@ public abstract class Vehicle{
 	 * @param revision
 	 * @param propertyCard
 	 */
-    public Vehicle(double basePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard){
+    public Vehicle(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard){
 
         this.basePrice=basePrice;
+		this.salePrice=salePrice;
         this.brand=brand;
         this.model=model;
         this.cylinderCapacity=cylinderCapacity;
@@ -90,6 +97,18 @@ public abstract class Vehicle{
 	public void setBasePrice(double basePrice){
 		
 		this.basePrice= basePrice;
+		
+	}
+
+	public double getSalePrice(){
+		
+		return salePrice;
+		
+	}
+
+	public void setSalePrice(double salePrice){
+		
+		this.salePrice= salePrice;
 		
 	}
 
@@ -201,6 +220,6 @@ public abstract class Vehicle{
 		
 	}
 
-	public abstract double sellPrice(int discount, double extraD);
+	public abstract void sellPrice(int discount, double extraD);
 
 }

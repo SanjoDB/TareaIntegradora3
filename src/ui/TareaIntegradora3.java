@@ -97,6 +97,7 @@ public class TareaIntegradora3{
     public void registerVehicle(){
 
         double basePrice=0;
+        double salePrice=0;
         String brand="";
         int model=0;
         double cylinderCapacity=0;
@@ -214,7 +215,7 @@ public class TareaIntegradora3{
                 typeGasoline= sc.nextInt();
                 sc.nextLine();
 
-                control.addGasoline(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline);
+                control.addGasoline(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline);
 
             } else if(typeA==2){
                 System.out.println("Type the duration of the battery of the automobile");
@@ -226,7 +227,7 @@ public class TareaIntegradora3{
                 typeCharger= sc.nextInt();
                 sc.nextLine();
 
-                control.addElectric(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, batteryDuration, typeCharger);
+                control.addElectric(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, batteryDuration, typeCharger);
 
             } else if(typeA==3){
                 System.out.println("Type the capacity of the tank of the automobile");
@@ -247,7 +248,7 @@ public class TareaIntegradora3{
                 typeCharger= sc.nextInt();
                 sc.nextLine();
 
-                control.addHybrid(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline, batteryDuration, typeCharger);
+                control.addHybrid(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline, batteryDuration, typeCharger);
 
             }
 
@@ -261,7 +262,7 @@ public class TareaIntegradora3{
             type2= sc.nextInt();
             sc.nextLine();
 
-            control.addMotorcycle(basePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, gasolineCapacity, type2);
+            control.addMotorcycle(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, gasolineCapacity, type2);
         }
     }
 
