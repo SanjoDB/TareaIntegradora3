@@ -113,7 +113,8 @@ public class Gasoline extends Automobile implements GasolineConsume{
 	 */
 	public String toString(){
 
-        return "Base Price: " + super.basePrice + "\n" +
+        return "Gas Automobile: \n" +
+		"Base Price: " + super.basePrice + "\n" +
         "Brand: " + super.brand + "\n" +
 		"Model: " + super.model + "\n" +
 		"Cylinder Capacity: " + super.cylinderCapacity + "\n" +

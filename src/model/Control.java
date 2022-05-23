@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
+
 public class Control{
 
     /** 
@@ -14,6 +16,11 @@ public class Control{
 	 */
     private ArrayList<Vehicle> vehicles;
 
+    /**
+	 * Matrix of vechicles representing the parking lot
+	 */
+    private Vehicle[][] pvehicles= new Vehicle[10][5];;
+
     /** 
 	 * Constructor of the class, receive no parameters
 	 */
@@ -21,7 +28,40 @@ public class Control{
 
         vehicles = new ArrayList<Vehicle>();
 
-        //Las mtos y carros son vehiculos, crar una clase vehiculos desde donde se heredan motos y carros
+    }
+
+    /**
+	 * Method used to verify if there is any vehicle in the array
+	 * @return flag boolean, true if there is any else false
+	 */
+    public boolean hasVehicle(){
+
+        boolean flag=false;
+
+        for(int i=0; i<vehicles.size() && !flag; i++){
+            if(vehicles.get(i)!=null){
+                flag=true;
+            }
+        }
+
+        return flag;
+    }
+
+    /**
+	 * Method used to verify if there is any vehicle in the parking lot
+	 * @return flag boolean, true if there is any else false
+	 */
+    public boolean hasVehiclePark(){
+
+        boolean flag=false;
+
+        for(int i=0; i<vehicles.size() && !flag; i++){
+            if(vehicles.get(i)!=null && vehicles.get(i).getModel()<2015){
+                flag=true;
+            }
+        }
+
+        return flag;
     }
 
     /**
@@ -47,8 +87,17 @@ public class Control{
     public String addGasoline(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, int numDoor, boolean polarized, int type1, double tankCapacity, int typeGasoline){
 
         String out="";
-        vehicles.add(new Gasoline(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline));
-        out="The gas automobile was added";
+        Vehicle aux=new Gasoline(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline);
+        if(parking(model, aux)){
+
+            vehicles.add(aux);
+            out="The gas automobile was added";
+
+        } else{
+
+            out="The parking is full so the automobile cant be added";
+
+        }
 
         return out;
     }
@@ -76,8 +125,17 @@ public class Control{
     public String addElectric(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, int numDoor, boolean polarized, int type1, double batteryDuration, int typeCharger){
 
         String out="";
-        vehicles.add(new Electric(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, batteryDuration, typeCharger));
-        out="The electric automobile was added";
+        Vehicle aux=new Electric(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, batteryDuration, typeCharger);
+        if(parking(model, aux)){
+
+            vehicles.add(aux);
+            out="The electric automobile was added";
+
+        } else{
+
+            out="The parking is full";
+
+        }
 
         return out;
     }
@@ -107,8 +165,17 @@ public class Control{
     public String addHybrid(double basePrice, double salePrice, String brand, int model, double cylinderCapacity, double mileage, String badge, int type, Document soat, Document revision, Document propertyCard, int numDoor, boolean polarized, int type1, double tankCapacity, int typeGasoline, double batteryDuration, int typeCharger){
 
         String out="";
-        vehicles.add(new Hybrid(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline, batteryDuration, typeCharger));
-        out="The Hybrid automobile was added";
+        Vehicle aux=new Hybrid(basePrice, salePrice, brand, model, cylinderCapacity, mileage, badge, type, soat, revision, propertyCard, numDoor, polarized, type1, tankCapacity, typeGasoline, batteryDuration, typeCharger);
+        if(parking(model, aux)){
+
+            vehicles.add(aux);
+            out="The Hybrid automobile was added";
+
+        } else{
+
+            out="The parking is full";
+
+        }
 
         return out;
     }
@@ -140,6 +207,24 @@ public class Control{
     }
 
     /**
+	 * Method used to verify if there is any vehicle with that badge
+     * @param badge String, badge of the vehicle searched
+	 * @return flag boolean, true if there is a vehicle with that badge else false
+	 */
+    public boolean findBadge(String badge){
+
+        boolean flag=false;
+
+		for(int i=0; i<vehicles.size() && !flag; i++){
+            if(badge.equals(vehicles.get(i).getBadge())){
+                flag=true;
+            }
+        }
+
+        return flag;
+	}
+
+    /**
 	 * Method used to calculate the final sale price of a vehicle
 	 * @param badge String, badge of the vehicle searched
      * @param discount int, it states if the vehicle gets an extra discount or not
@@ -166,15 +251,15 @@ public class Control{
             if(vehicles.get(i)!=null){
                 if(typeA==1){
                     if(vehicles.get(i) instanceof Gasoline){
-                        out+= vehicles.get(i).toString();
+                        out+= vehicles.get(i).toString() + "\n";
                     }
                 } else if(typeA==2){
                     if(vehicles.get(i) instanceof Electric){
-                        out+= vehicles.get(i).toString();
+                        out+= vehicles.get(i).toString() + "\n";
                     }
                 } else if(typeA==3){
                     if(vehicles.get(i) instanceof Hybrid){
-                        out+= vehicles.get(i).toString();
+                        out+= vehicles.get(i).toString() + "\n";
                     }
                 }
             }
@@ -193,7 +278,7 @@ public class Control{
         for(int i=0; i<vehicles.size(); i++){
             if(vehicles.get(i)!=null){
                 if(vehicles.get(i) instanceof Motorcycle){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
             }
         }
@@ -211,13 +296,13 @@ public class Control{
         for(int i=0; i<vehicles.size(); i++){
             if(vehicles.get(i)!=null){
                 if(vehicles.get(i) instanceof Motorcycle){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
                 if(vehicles.get(i) instanceof Gasoline){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
                 if(vehicles.get(i) instanceof Hybrid){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
             }
         }
@@ -235,10 +320,10 @@ public class Control{
         for(int i=0; i<vehicles.size(); i++){
             if(vehicles.get(i)!=null){
                 if(vehicles.get(i) instanceof Electric){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
                 if(vehicles.get(i) instanceof Hybrid){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
             }
         }
@@ -256,7 +341,7 @@ public class Control{
         for(int i=0; i<vehicles.size(); i++){
             if(vehicles.get(i)!=null){
                 if(vehicles.get(i).getType().equals(VehicleType.NEW)){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
             }
         }
@@ -274,11 +359,219 @@ public class Control{
         for(int i=0; i<vehicles.size(); i++){
             if(vehicles.get(i)!=null){
                 if(vehicles.get(i).getType().equals(VehicleType.USED)){
-                    out+= vehicles.get(i).toString();
+                    out+= vehicles.get(i).toString() + "\n";
                 }
             }
         }
 
         return out;
+    }
+
+    /**
+	 * Method used to show the list of Documents of an specific vehicle
+     * @param badge String, identifier of the vehicle needed
+	 * @return out String, list of the documents
+	 */
+    public String showDocs(String badge){
+
+        String out="";
+
+		for(int i=0; i<vehicles.size(); i++){
+            if(badge.equals(vehicles.get(i).getBadge())){
+                out = "Soat: \n" + vehicles.get(i).getSoat() + "\n" +
+                "Revision: \n" + vehicles.get(i).getRevision() + "\n" +
+                "Porperty Card: \n" + vehicles.get(i).getPropertyCard() + "\n";
+            }
+        }
+
+        return out;
+	}
+
+    /**
+	 * Method used to add a vehicle to the parking lot
+     * @param model int, model of the vehicle
+     * @param aux Vehicle, vehicle added to the parking lot
+	 * @return out boolean, true if it was added else false
+	 */
+    public boolean parking(int model, Vehicle aux){
+
+        boolean out=false;
+
+            if(model==2014){
+                out= roundHelper(0,aux);
+            } else if(model==2013){
+                out= roundHelper(1,aux);
+            } else if(model==2012){
+                out= roundHelper(2,aux);
+            } else if(model==2011){
+                out= roundHelper(3,aux);
+            } else if(model<2011){
+                out= roundHelper(4,aux);
+            } else if(model>2014){
+                out= true;
+            }
+        
+
+        return out;
+    }
+
+    /**
+	 * Method used to verify if there is space to add a vehicle to the parking lot
+	 * @return flag boolean, true if there is space else false
+	 */
+    public boolean roundHelper(int col, Vehicle vehicle){
+        
+        boolean flag=false;
+   
+            for(int m=0; m<pvehicles.length && !flag;m++){
+                if(pvehicles[m][col]==null){
+                    pvehicles[m][col]= vehicle;
+                    flag=true;
+                }
+            }
+        
+
+        return flag;
+    }
+
+    /**
+	 * Method used to show the map of the parking lot
+	 * @return out String, map of the parking lot
+	 */
+    public String showParkingLot(){
+
+        int rows= pvehicles.length;
+        int columns= pvehicles[0].length;
+	
+		String out="";
+		String separator = "+---+ ";
+		String line = "" + String.join("", Collections.nCopies(columns, separator));
+		
+		
+		String numbers ="";
+		int count =0;
+		for(int i=0 ;i<rows ; i++) {
+			numbers ="";
+			for(int j=0 ;j<columns ; j++) {
+				count++;
+				Vehicle actual = pvehicles[i][j];
+				
+				if (pvehicles[i][j]==null) {
+					
+					numbers += "  0  " + " ";
+					
+				}else {
+
+					numbers += "  1  " + " ";
+
+				}
+			}
+			out+= line + "\n";
+			out+= numbers + "\n";
+			
+			
+		}
+		out+= line + "\n";
+		return out;
+    }
+
+    /**
+	 * Method used to show a list of vehicles in a specific range of time
+     * @param year1 int, first year of the range
+     * @param year2 int, second year of the range
+	 * @return out String, list of vehicles
+	 */
+    public String showVehicleYear(int year1, int year2){
+
+        String out="";
+
+        for(int i=0;i<pvehicles.length;i++){
+            for(int j=0;j<pvehicles[0].length;j++){
+                if(pvehicles[i][j]!=null){
+                    if(year1>year2){
+                        if(pvehicles[i][j].getModel()<=year1 && pvehicles[i][j].getModel()>=year2){
+                            out+= pvehicles[i][j] + "\n";
+                        }
+                    } else if(year2>year1){
+                        if(pvehicles[i][j].getModel()>=year1 && pvehicles[i][j].getModel()<=year2){
+                            out+= pvehicles[i][j] + "\n";
+                        }
+                    }   
+                }
+            }
+        }
+
+        return out;
+    }
+
+    /**
+	 * Method used to show the oldest vehicle/s
+	 * @return out String, list of vehicle/s
+	 */
+    public String showVehicleOld(){
+
+        String out="";
+        int year=10000;
+
+        for(int i=0;i<pvehicles.length;i++){
+            for(int j=0;j<pvehicles[0].length;j++){
+                if(pvehicles[i][j]!=null){
+                    if(pvehicles[i][j].getModel()==year){
+                        out+= pvehicles[i][j].toString() + "\n";
+                    } else if(pvehicles[i][j].getModel()<year){
+                        year=pvehicles[i][j].getModel();
+                        out= pvehicles[i][j].toString() + "\n";
+                    }
+                }
+            }
+        }
+
+        return out;
+    }
+
+    /**
+	 * Method used to show the newest vehicle/s
+	 * @return out String, list of vehicle/s
+	 */
+    public String showVehicleNew(){
+
+        String out="";
+        int year=0;
+
+        for(int i=0;i<pvehicles.length;i++){
+            for(int j=0;j<pvehicles[0].length;j++){
+                if(pvehicles[i][j]!=null){
+                    if(pvehicles[i][j].getModel()==year){
+                        out+= pvehicles[i][j].toString() + "\n";
+                    } else if(pvehicles[i][j].getModel()>year){
+                        year=pvehicles[i][j].getModel();
+                        out= pvehicles[i][j].toString() + "\n";
+                    }
+                }
+            }
+        }
+
+        return out;
+    }
+
+    /**
+	 * Method used to show the occupancy rate of the parking lot
+	 * @return percentage double, occupancy rate
+	 */
+    public double showParkingPercentage(){
+
+        double counter=0;
+
+        for(int i=0;i<pvehicles.length;i++){
+            for(int j=0;j<pvehicles[0].length;j++){
+                if(pvehicles[i][j]!=null){
+                    counter++;
+                }
+            }
+        }
+
+        double percentage=(counter/50)*100;
+
+        return percentage;
     }
 }

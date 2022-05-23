@@ -220,6 +220,9 @@ public abstract class Vehicle{
 		
 	}
 
+	/**
+	 * Abstract Method used to calculate the sale price of a vehicle
+	 */
 	public abstract void sellPrice(int discount, double extraD);
 
 }

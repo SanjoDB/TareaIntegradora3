@@ -179,7 +179,8 @@ public class Hybrid extends Automobile{
 	 */
     public String toString(){
 
-        return "Base Price: " + super.basePrice + "\n" +
+        return "Hybrid Automobile: \n" +
+		"Base Price: " + super.basePrice + "\n" +
         "Brand: " + super.brand + "\n" +
 		"Model: " + super.model + "\n" +
 		"Cylinder Capacity: " + super.cylinderCapacity + "\n" +

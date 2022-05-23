@@ -117,7 +117,8 @@ public class Electric extends Automobile{
 	 */
 	public String toString(){
 
-        return "Base Price: " + super.basePrice + "\n" +
+        return "Electric Automobile: \n" +
+		"Base Price: " + super.basePrice + "\n" +
         "Brand: " + super.brand + "\n" +
 		"Model: " + super.model + "\n" +
 		"Cylinder Capacity: " + super.cylinderCapacity + "\n" +
